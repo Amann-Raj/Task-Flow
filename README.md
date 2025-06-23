@@ -10,6 +10,27 @@ Task-Flow is a modern, full-stack task management web application built with the
 - 🌗 Light/dark theme toggle
 - ⚡ Fast, responsive, and mobile-friendly UI
 - 🔗 RESTful API with MongoDB backend
+- 🧪 Robust automated backend test suite (unit, integration, API)
+
+---
+
+## 🧪 Testing
+- **Stack:** Jest, Supertest, mongodb-memory-server, jest.mock
+- **Types:**
+  - Unit: Controller logic with mocked models
+  - Integration: Real API + in-memory DB
+  - API: End-to-end CRUD & error cases
+- **How to run:**
+  ```bash
+  cd backend
+  npm test
+  ```
+  - First run may download MongoDB for in-memory tests (one-time)
+  - Coverage report auto-generated
+- **Highlights:**
+  - ✅ 100% safe: never touches your real DB
+  - ✅ Covers all CRUD, error, and edge cases
+  - ✅ Modern, maintainable test code
 
 ---
 

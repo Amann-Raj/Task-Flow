@@ -1,8 +1,12 @@
 const Task = require('../models/Task');
 
 exports.getTasks = async (req, res) => {
-  const tasks = await Task.find().sort({ createdAt: -1 });
-  res.json(tasks);
+  try {
+    const tasks = await Task.find().sort({ createdAt: -1 });
+    res.json(tasks);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 };
 
 exports.createTask = async (req, res) => {

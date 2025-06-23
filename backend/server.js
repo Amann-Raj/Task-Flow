@@ -15,11 +15,15 @@ app.use(express.json());
 // Routes
 app.use('/tasks', taskRoutes);
 
-// Connect to MongoDB and start server
-mongoose.connect(MONGODB_URI)
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  })
-  .catch(err => console.error('MongoDB connection error:', err)); 
+// Only connect and listen if not in test mode
+if (process.env.NODE_ENV !== 'test') {
+  mongoose.connect(MONGODB_URI)
+    .then(() => {
+      app.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+      });
+    })
+    .catch(err => console.error('MongoDB connection error:', err));
+}
+
+module.exports = app; 

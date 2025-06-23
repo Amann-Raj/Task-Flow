@@ -2,6 +2,8 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 
 const TaskContext = createContext();
 
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+
 export function TaskProvider({ children }) {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -12,7 +14,7 @@ export function TaskProvider({ children }) {
   const fetchTasks = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:5000/tasks');
+      const res = await fetch(`${API_URL}/tasks`);
       const data = await res.json();
       setTasks(data || []);
     } catch (error) {
@@ -28,7 +30,7 @@ export function TaskProvider({ children }) {
 
   const addTask = async (taskData) => {
     try {
-      const res = await fetch('http://localhost:5000/tasks', {
+      const res = await fetch(`${API_URL}/tasks`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(taskData),
@@ -42,7 +44,7 @@ export function TaskProvider({ children }) {
 
   const updateTask = async (id, updates) => {
     try {
-      const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+      const res = await fetch(`${API_URL}/tasks/${id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updates),
@@ -56,7 +58,7 @@ export function TaskProvider({ children }) {
 
   const deleteTask = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/tasks/${id}`, {
+      const res = await fetch(`${API_URL}/tasks/${id}`, {
         method: 'DELETE',
       });
       if (res.ok) setTasks(prev => prev.filter(task => task._id !== id));
