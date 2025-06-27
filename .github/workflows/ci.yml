@@ -39,9 +39,11 @@ jobs:
 
       - name: Download Keploy CLI
         run: |
-          curl -L https://github.com/keploy/keploy/releases/latest/download/keploy-linux-amd64 -o keploy
+          curl -L https://github.com/keploy/keploy/releases/download/v0.7.8/keploy-linux-amd64 -o keploy
+          file keploy  # Should output: ELF 64-bit LSB executable
+          head -10 keploy  # Print first 10 lines for debugging
           chmod +x keploy
-          sudo mv keploy /usr/local/bin/keploy
+          sudo mv keploy /usr/local/bin/
 
       - name: Run Keploy tests
         run: |
