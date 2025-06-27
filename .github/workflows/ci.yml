@@ -34,9 +34,11 @@ jobs:
           cd backend
           nohup npm start &
 
-      - name: Download Keploy
+      - name: Download Keploy CLI
         run: |
-          curl -s https://raw.githubusercontent.com/keploy/keploy/main/install.sh | bash
+          curl -L https://github.com/keploy/keploy/releases/latest/download/keploy-linux-amd64 -o keploy
+          chmod +x keploy
+          sudo mv keploy /usr/local/bin/
 
       - name: Run Keploy tests
         run: |
