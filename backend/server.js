@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const taskRoutes = require('./routes/taskRoutes');
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 require('dotenv').config();
 
 const app = express();
@@ -14,6 +16,24 @@ app.use(express.json());
 
 // Routes
 app.use('/tasks', taskRoutes);
+
+// Swagger/OpenAPI setup
+const swaggerOptions = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Task Flow API',
+      version: '1.0.0',
+      description: 'API documentation for Task Flow project',
+    },
+    servers: [
+      { url: 'http://localhost:5000' },
+    ],
+  },
+  apis: ['./routes/*.js'], // Path to the API routes for annotation
+};
+const swaggerSpec = swaggerJsdoc(swaggerOptions);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Only connect and listen if not in test mode
 if (process.env.NODE_ENV !== 'test') {

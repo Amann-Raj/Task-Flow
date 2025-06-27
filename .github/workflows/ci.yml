@@ -1,0 +1,50 @@
+name: CI with Keploy API Testing
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      mongo:
+        image: mongo:latest
+        ports:
+          - 27017:27017
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm install
+
+      - name: Start backend server
+        run: |
+          cd backend
+          nohup npm start &
+
+      - name: Download Keploy
+        run: |
+          curl -s https://raw.githubusercontent.com/keploy/keploy/main/install.sh | bash
+
+      - name: Run Keploy tests
+        run: |
+          cd backend
+          keploy test --proxy-port 8080 --app-port 5000
+
+      - name: Upload Keploy reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: keploy-reports
+          path: backend/keploy/reports 
