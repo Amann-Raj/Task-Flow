@@ -224,3 +224,34 @@ For detailed API usage, examples, and testing, check out the live Postman docume
 
 ## 📄 License
 MIT
+
+---
+
+# 📝 Blog: My Journey with OpenAPI, Keploy, and CI/CD API Testing
+
+## Introduction
+
+In this project, I transformed my API testing workflow by combining OpenAPI documentation, Keploy's AI-powered testing, and seamless CI/CD integration. Here's a quick look at what I learned and achieved!
+
+## Step 1: OpenAPI Schema
+I documented my Express backend using OpenAPI (Swagger), making my API self-describing and easy to test or integrate. The docs are auto-generated and available at `/api-docs`.
+
+## Step 2: AI-Powered API Testing with Keploy
+Manual API testing is slow and misses edge cases. With Keploy, I:
+- Auto-generated test cases from my OpenAPI schema and real API traffic.
+- Used the Keploy Chrome extension to record and replay API calls on my app and public APIs.
+- Instantly got coverage for edge cases (like Unicode, empty fields, invalid data) that I'd never think to test manually.
+
+## Step 3: CI/CD Integration
+I integrated Keploy testing into my GitHub Actions workflow:
+- On every push or PR, GitHub Actions installs Keploy and runs the test suite against my deployed backend.
+- API keys are managed securely with GitHub secrets.
+- Every code change is automatically validated with smart, AI-generated tests.
+
+## Step 4: Debugging & Best Practices
+I learned to fix CI/CD errors, verify CLI installations, and manage secrets securely. The Keploy Chrome extension made it easy to record and replay API calls, and the dashboard gave me instant feedback on test results.
+
+## Conclusion
+With OpenAPI, Keploy, and CI/CD, I moved from slow, manual API testing to a fast, automated, and intelligent workflow. I spend less time writing tests and more time building features—while knowing my API is always covered!
+
+---
