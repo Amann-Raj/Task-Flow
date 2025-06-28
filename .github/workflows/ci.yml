@@ -37,19 +37,15 @@ jobs:
       - name: Wait for backend to be ready
         run: sleep 10
 
-      - name: Download Keploy CLI
+      - name: Install Keploy CLI
         run: |
-          curl -L https://github.com/keploy/keploy/releases/download/v0.7.8/keploy-linux-amd64 -o keploy
-          file keploy  # Should output: ELF 64-bit LSB executable
-          head -10 keploy  # Print first 10 lines for debugging
-          chmod +x keploy
-          sudo mv keploy /usr/local/bin/
+          curl --silent -L https://keploy.io/ent/install.sh | bash
 
-      - name: Run Keploy Cloud Test Suite
+      - name: Run Keploy Test Suite
         env:
           KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
         run: |
-          cd tests
+          export KEPLOY_API_KEY=${{ secrets.KEPLOY_API_KEY }}
           keploy test-suite --app=c07c0067-265f-4f2a-b0f0-4c0393d0f3d8 --base-path https://task-flow-ipzc.onrender.com/tasks --cloud
 
       - name: Upload Keploy reports
