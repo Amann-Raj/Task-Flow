@@ -45,10 +45,12 @@ jobs:
           chmod +x keploy
           sudo mv keploy /usr/local/bin/
 
-      - name: Run Keploy tests
+      - name: Run Keploy Cloud Test Suite
+        env:
+          KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
         run: |
-          cd backend
-          keploy test --proxy-port 8080 --app-port 5000
+          cd tests
+          keploy test-suite --app=c07c0067-265f-4f2a-b0f0-4c0393d0f3d8 --base-path https://task-flow-ipzc.onrender.com/tasks --cloud
 
       - name: Upload Keploy reports
         uses: actions/upload-artifact@v4
